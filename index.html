@@ -511,7 +511,7 @@ async function renderJpegs(onStep){
   const keepY = window.scrollY; window.scrollTo(0, 0);
   for (let i = 0; i < S.c.slides.length; i++) {
     host.innerHTML = ''; const el = slideEl(i); host.appendChild(el); fit(el);
-    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    await new Promise(r => setTimeout(r, 80)); // setTimeout مو rAF — حتى لو الصفحة بالخلفية يكمل
     const cv = await html2canvas(el, {width:1080, height:1350, scale:1, useCORS:true, backgroundColor:'#0e0e10', logging:false, windowWidth:Math.max(1080, innerWidth), windowHeight:Math.max(1350, innerHeight)});
     out.push(await new Promise(r => cv.toBlob(r, 'image/jpeg', .93)));
     onStep && onStep(i + 1);
